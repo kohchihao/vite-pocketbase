@@ -74,10 +74,18 @@ function App() {
     console.log('[expense breakdown]', breakdownWithPercentage);
   }
 
+  async function searchTransactions(query) {
+    const transactions = await pb.collection('transactions').getFullList({
+      filter: `description ~ "${query}"`,
+    });
+    console.log('[search txn]', transactions);
+  }
+
   useEffect(() => {
     // getAllTransactions();
     // getCurrentMonthTransactions();
     getExpenseBreakdown();
+    searchTransactions('test');
   }, []);
 
   return (
